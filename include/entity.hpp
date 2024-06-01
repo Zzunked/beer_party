@@ -2,17 +2,18 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
+#include "math.hpp"
+
 
 class Entity
 {
 public:
-    Entity(float p_x, float p_y, SDL_Texture* p_tex);
-    float Get_X();
-    float Get_Y();
+    Entity(Vector2f p_pos, SDL_Texture* p_tex);
+    Vector2f& GetPos();
     SDL_Texture* GetTex();
     SDL_Rect GetCurrentFrame();
 private:
-    float x, y;
+    Vector2f pos;
     SDL_Rect current_frame;
     SDL_Texture* tex;
 };

@@ -47,16 +47,16 @@ void RenderWindow::Clear()
 void RenderWindow::Render(Entity& p_entity)
 {
     SDL_Rect src;
-    src.x = (int)p_entity.GetCurrentFrame().x;
-    src.y = (int)p_entity.GetCurrentFrame().y;
-    src.w = (int)p_entity.GetCurrentFrame().w;
-    src.h = (int)p_entity.GetCurrentFrame().h;
+    src.x = p_entity.GetCurrentFrame().x;
+    src.y = p_entity.GetCurrentFrame().y;
+    src.w = p_entity.GetCurrentFrame().w;
+    src.h = p_entity.GetCurrentFrame().h;
 
     SDL_Rect dst;
-    dst.x = (int)p_entity.Get_X();
-    dst.y = (int)p_entity.Get_Y();
-    dst.w = (int)p_entity.GetCurrentFrame().w * 4;
-    dst.h = (int)p_entity.GetCurrentFrame().h * 4;
+    dst.x = p_entity.GetPos().x;
+    dst.y = p_entity.GetPos().y;
+    dst.w = p_entity.GetCurrentFrame().w * 4;
+    dst.h = p_entity.GetCurrentFrame().h * 4;
 
     SDL_RenderCopy(renderer, p_entity.GetTex(), &src, &dst);
 }

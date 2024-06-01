@@ -3,7 +3,14 @@ cmake_minimum_required(VERSION 3.28.3)
 project(simple_game_sdl2)
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(game src/main.cpp src/render_window.cpp src/utils.cpp src/entity.cpp)
+add_executable(
+    game 
+    src/main.cpp 
+    src/render_window.cpp 
+    src/utils.cpp 
+    src/entity.cpp
+    src/math.cpp
+)
 
 # Variables storing SDL framework locations
 set(SDL2       /Library/Frameworks/SDL2.framework)

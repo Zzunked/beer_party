@@ -6,6 +6,7 @@
 #include "render_window.hpp"
 #include "utils.hpp"
 #include "entity.hpp"
+#include "math.hpp"
 
 
 int main(int argc, char* args[])
@@ -24,10 +25,10 @@ int main(int argc, char* args[])
     SDL_Texture* beer_texture = window.LoadTexture("assets/beer.png");
 
     std::vector<Entity> my_beers = {
-        Entity(0, 300, beer_texture),
-        Entity(30, 0, beer_texture),
-        Entity(30, 30, beer_texture),
-        Entity(30, 60, beer_texture)
+        Entity(Vector2f(0, 0), beer_texture),
+        Entity(Vector2f(30, 0), beer_texture),
+        Entity(Vector2f(30, 30), beer_texture),
+        Entity(Vector2f(30, 60), beer_texture)
     };
 
     while (runnnig)
