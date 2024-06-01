@@ -19,6 +19,8 @@ int main(int argc, char* args[])
     SDL_Event event;
     bool runnnig = true;
 
+    SDL_Texture* beer_texture = window.LoadTexture("assets/beer.png");
+
     while (runnnig)
     {
         while(SDL_PollEvent(&event))
@@ -27,6 +29,9 @@ int main(int argc, char* args[])
             {
                 runnnig = false;
             }
+            window.Clear();
+            window.Renderer(beer_texture);
+            window.Display();
         }
     }
     

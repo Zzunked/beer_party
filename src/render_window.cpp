@@ -35,3 +35,18 @@ SDL_Texture* RenderWindow::LoadTexture(const char* p_filePath)
 
     return texture;
 }
+
+void RenderWindow::Clear()
+{
+    SDL_RenderClear(renderer);
+}
+
+void RenderWindow::Renderer(SDL_Texture* p_tex)
+{
+    SDL_RenderCopy(renderer, p_tex, nullptr, nullptr);
+}
+
+void RenderWindow::Display()
+{
+    SDL_RenderPresent(renderer);
+}
