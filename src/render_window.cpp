@@ -4,6 +4,7 @@
 
 #include "render_window.hpp"
 #include "utils.hpp"
+#include "entity.hpp"
 
 
 RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h)
@@ -36,15 +37,30 @@ SDL_Texture* RenderWindow::LoadTexture(const char* p_filePath)
     return texture;
 }
 
+
 void RenderWindow::Clear()
 {
     SDL_RenderClear(renderer);
 }
 
-void RenderWindow::Renderer(SDL_Texture* p_tex)
+
+void RenderWindow::Render(Entity& p_entity)
 {
-    SDL_RenderCopy(renderer, p_tex, nullptr, nullptr);
+    SDL_Rect src;
+    src.x = (int)p_entity.GetCurrentFrame().x;
+    src.y = (int)p_entity.GetCurrentFrame().y;
+    src.w = (int)p_entity.GetCurrentFrame().w;
+    src.h = (int)p_entity.GetCurrentFrame().h;
+
+    SDL_Rect dst;
+    dst.x = (int)p_entity.Get_X();
+    dst.y = (int)p_entity.Get_Y();
+    dst.w = (int)p_entity.GetCurrentFrame().w * 4;
+    dst.h = (int)p_entity.GetCurrentFrame().h * 4;
+
+    SDL_RenderCopy(renderer, p_entity.GetTex(), &src, &dst);
 }
+
 
 void RenderWindow::Display()
 {
