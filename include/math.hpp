@@ -4,6 +4,8 @@
 
 struct Vector2f
 {
+    float x, y;
+
     Vector2f()
     :x(0.0f), y(0.0f)
     {}
@@ -16,6 +18,4 @@ struct Vector2f
     {
         std::cout << x << " , " << y << std::endl;
     }
-
-    float x, y;
 };

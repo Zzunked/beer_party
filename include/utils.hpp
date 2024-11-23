@@ -4,6 +4,17 @@
 // #include <format>
 
 
+namespace utils
+{
+    inline float HireTimeInSeconds()
+    {
+        float t = SDL_GetTicks();
+        t *= 0.001f;
+
+        return t;
+    }
+}
+
 void LogError(const char* error_message);
 
 

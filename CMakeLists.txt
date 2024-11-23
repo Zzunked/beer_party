@@ -10,6 +10,7 @@ add_executable(
     src/utils.cpp 
     src/entity.cpp
     src/math.cpp
+    src/beer.cpp
 )
 
 # Variables storing SDL framework locations

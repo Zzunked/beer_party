@@ -15,14 +15,8 @@ RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h)
     if (window == nullptr)
         LogError("Window failed to init. SDL_Error");
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-}
-
-
-void RenderWindow::CleanUp()
-{
-    SDL_DestroyWindow(window);
 }
 
 
@@ -35,6 +29,12 @@ SDL_Texture* RenderWindow::LoadTexture(const char* p_filePath)
         LogError("Failed to load texture");
 
     return texture;
+}
+
+
+void RenderWindow::CleanUp()
+{
+    SDL_DestroyWindow(window);
 }
 
 
@@ -55,8 +55,26 @@ void RenderWindow::Render(Entity& p_entity)
     SDL_Rect dst;
     dst.x = p_entity.GetPos().x;
     dst.y = p_entity.GetPos().y;
-    dst.w = p_entity.GetCurrentFrame().w * 4;
-    dst.h = p_entity.GetCurrentFrame().h * 4;
+    dst.w = p_entity.GetCurrentFrame().w * this -> mux;
+    dst.h = p_entity.GetCurrentFrame().h * this -> mux;
+
+    SDL_RenderCopy(renderer, p_entity.GetTex(), &src, &dst);
+}
+
+
+void RenderWindow::Render(Entity& p_entity, int p_mux)
+{
+    SDL_Rect src;
+    src.x = p_entity.GetCurrentFrame().x;
+    src.y = p_entity.GetCurrentFrame().y;
+    src.w = p_entity.GetCurrentFrame().w;
+    src.h = p_entity.GetCurrentFrame().h;
+
+    SDL_Rect dst;
+    dst.x = p_entity.GetPos().x;
+    dst.y = p_entity.GetPos().y;
+    dst.w = p_entity.GetCurrentFrame().w * p_mux;
+    dst.h = p_entity.GetCurrentFrame().h * p_mux;
 
     SDL_RenderCopy(renderer, p_entity.GetTex(), &src, &dst);
 }
