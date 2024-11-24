@@ -12,8 +12,34 @@
 #include "beer.hpp"
 
 
-void move_beer(std::vector<Beer> beers, int beer_num, int dist) {
+
+int calculate_random_dest(int start_point, int max_point) {
+
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist6(start_point, max_point);
+    int dest = dist6(rng);
+
+    return dest;
+}
+
+
+void move_beers(std::vector<Beer>& beers) {
+
+    for (Beer &beer : beers) {
     
+        Vector2f current_beer_pos = beer.get_position();
+
+        if (current_beer_pos.y == beer.min_point){
+            //int dest = calculate_random_dest(beer.max_point, beer.min_point);
+            int dest = 0;
+            beer.set_dest(dest);
+            beer.change_direction();
+        } else if (current_beer_pos.y == beer.get_dest()) {
+            beer.change_direction();
+        }
+        beer.move_by_y();
+    }
 }
 
 
@@ -43,13 +69,10 @@ int main(int argc, char* args[])
 
     for (int i = 0; i < 9; i++)
     {
-        my_beers.push_back(Beer(Vector2f(beer_position, 590), beer_texture));
+        my_beers.push_back(Beer(Vector2f(beer_position, 590), beer_texture, i));
         beer_position += beer_step;
     };
-
-
-    int beer_step_y = 10;
-    int direction_up = 1;
+    
     while (running)
     {
 
@@ -72,33 +95,16 @@ int main(int argc, char* args[])
             accumulator -= time_step;
         }
 
-        std::random_device dev;
-        std::mt19937 rng(dev());
-        std::uniform_int_distribution<std::mt19937::result_type> dist6(0,8);
-
-        int rand_beer = dist6(rng);
-
-        Vector2f beer_pos = my_beers.at(rand_beer).get_position();
-
-
-        if (direction_up == 1) beer_pos.y -= beer_step_y;
-        else beer_pos.y += beer_step_y;
-
-        if (beer_pos.y == 0) {
-            direction_up = 0;
-        } else if (beer_pos.y == 590) {
-            direction_up = 1;
-        }
-        //std::cout << beer_pos.y << std::endl;
-        //std::cout << current_time << std::endl;
-        my_beers.at(rand_beer).set_position(Vector2f(beer_pos.x, beer_pos.y));
+        move_beers(my_beers);
 
         window.clear();
 
         window.render(background, 1);
         
-        for (Beer beer: my_beers)
+        for (Beer &beer : my_beers) {
+            beer.get_info();
             window.render(beer);
+        }
 
         window.display();
     }
