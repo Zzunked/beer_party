@@ -20,10 +20,10 @@ void move_beer(std::vector<Beer> beers, int beer_num, int dist) {
 int main(int argc, char* args[])
 {   
     if (SDL_Init(SDL_INIT_VIDEO) > 0)
-        LogError("SDL_Init()");
+        log_error("SDL_Init()");
 
     if (!(IMG_Init(IMG_INIT_PNG)))
-        LogError("IMG_Init()");
+        log_error("IMG_Init()");
     
     RenderWindow window("Beer Party", 1280, 720);
 
@@ -31,10 +31,11 @@ int main(int argc, char* args[])
     bool running = true;
     const float time_step = 0.01f;
     float accumulator = 0.0f;
-    float current_time = utils::HireTimeInSeconds();
+    float current_time = utils::hire_time_in_seconds();
 
-    SDL_Texture* beer_texture = window.LoadTexture("assets/beer.png");
-    SDL_Texture* tavern_background = window.LoadTexture("assets/tavern_bg.png");
+    SDL_Texture* beer_texture = window.load_texture("assets/beer.png");
+    SDL_Texture* tavern_background = window.load_texture("assets/tavern_bg.png");
+    Entity background = Entity(Vector2f(0, 0), tavern_background, 1280, 720);
 
     std::vector<Beer> my_beers;
     int beer_position = 24;
@@ -46,7 +47,6 @@ int main(int argc, char* args[])
         beer_position += beer_step;
     };
 
-    Entity background = Entity(Vector2f(0, 0), tavern_background, 1280, 720);
 
     int beer_step_y = 10;
     int direction_up = 1;
@@ -54,7 +54,7 @@ int main(int argc, char* args[])
     {
 
         int start_ticks = SDL_GetTicks();
-        float new_time = utils::HireTimeInSeconds();
+        float new_time = utils::hire_time_in_seconds();
         float frame_time = new_time - current_time;
         current_time = new_time;
         accumulator += frame_time;
@@ -78,7 +78,7 @@ int main(int argc, char* args[])
 
         int rand_beer = dist6(rng);
 
-        Vector2f beer_pos = my_beers.at(rand_beer).GetPos();
+        Vector2f beer_pos = my_beers.at(rand_beer).get_position();
 
 
         if (direction_up == 1) beer_pos.y -= beer_step_y;
@@ -91,19 +91,19 @@ int main(int argc, char* args[])
         }
         //std::cout << beer_pos.y << std::endl;
         //std::cout << current_time << std::endl;
-        my_beers.at(rand_beer).SetPos(Vector2f(beer_pos.x, beer_pos.y));
+        my_beers.at(rand_beer).set_position(Vector2f(beer_pos.x, beer_pos.y));
 
-        window.Clear();
+        window.clear();
 
-        window.Render(background, 1);
+        window.render(background, 1);
         
         for (Beer beer: my_beers)
-            window.Render(beer);
+            window.render(beer);
 
-        window.Display();
+        window.display();
     }
     
-    window.CleanUp();
+    window.clean_up();
 
     return 0;    
 }

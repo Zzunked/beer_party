@@ -16,10 +16,10 @@ private:
 public:
     Entity(Vector2f p_pos, SDL_Texture* p_tex);
     Entity(Vector2f p_pos, SDL_Texture* p_tex, int p_width,  int p_height);
-    Vector2f GetPos();
-    void SetPos(Vector2f p_pos);
-    SDL_Texture* GetTex() const;
-    SDL_Rect GetCurrentFrame() const;
-    void SetCurrentFrameWidth(int p_width);
-    void SetCurrentFrameHeight(int p_height);
+    Vector2f get_position();
+    void set_position(Vector2f p_pos);
+    SDL_Texture* get_texture() const;
+    SDL_Rect get_current_frame() const;
+    void set_current_frame_width(int p_width);
+    void set_current_frame_height(int p_height);
 };

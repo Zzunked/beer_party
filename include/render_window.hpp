@@ -13,11 +13,11 @@ private:
     const int mux = 4;
 public:
     RenderWindow(const char* p_title, int p_w, int p_h);
-    SDL_Texture* LoadTexture(const char* p_filePath);
+    SDL_Texture* load_texture(const char* p_filePath);
 
-    void CleanUp();
-    void Clear();
-    void Render(Entity& p_entity);
-    void Render(Entity& p_entity, int mux);
-    void Display();
+    void clean_up();
+    void clear();
+    void render(Entity& p_entity);
+    void render(Entity& p_entity, int mux);
+    void display();
 };

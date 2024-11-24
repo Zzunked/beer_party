@@ -24,33 +24,33 @@ Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex, int p_width, int p_height)
 }
 
 
-SDL_Texture* Entity::GetTex() const
+SDL_Texture* Entity::get_texture() const
 {
     return tex;
 }
 
 
-SDL_Rect Entity::GetCurrentFrame() const
+SDL_Rect Entity::get_current_frame() const
 {
     return current_frame;
 }
 
 
-void Entity::SetCurrentFrameWidth(int p_width) {
+void Entity::set_current_frame_width(int p_width) {
     current_frame.w = p_width;
 } 
 
 
-void Entity::SetCurrentFrameHeight(int p_height) {
+void Entity::set_current_frame_height(int p_height) {
     current_frame.h = p_height;
 } 
 
 
-Vector2f Entity::GetPos()
+Vector2f Entity::get_position()
 {
     return pos;
 }
 
-void Entity::SetPos(Vector2f p_pos) {
+void Entity::set_position(Vector2f p_pos) {
    pos = p_pos; 
 }

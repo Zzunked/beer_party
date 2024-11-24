@@ -1,12 +1,10 @@
 #pragma once
 #include <SDL.h>
-// #include <iostream>
-// #include <format>
 
 
 namespace utils
 {
-    inline float HireTimeInSeconds()
+    inline float hire_time_in_seconds()
     {
         float t = SDL_GetTicks();
         t *= 0.001f;
@@ -15,11 +13,5 @@ namespace utils
     }
 }
 
-void LogError(const char* error_message);
+void log_error(const char* error_message);
 
-
-// void PrintRectPosition(SDL_Rect rect)
-// {
-//     std::string formatted_str = std::format("Rectangle position (x: {}, y: {})", rect.x, rect.y);
-//     std::cout << formatted_str << std::endl;
-// }
