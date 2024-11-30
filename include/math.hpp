@@ -18,4 +18,9 @@ struct Vector2f
     {
         std::cout << x << " , " << y << std::endl;
     }
+    
+    bool operator==(const Vector2f &vector) const {
+
+        return ((this->x == vector.x) && (this->y == vector.y));
+    }
 };
