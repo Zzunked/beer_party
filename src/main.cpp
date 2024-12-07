@@ -75,9 +75,10 @@ int main(int argc, char* args[])
 
 
     SDL_Event event;
-    SDL_Texture* beer_texture = window.load_texture("assets/pictures/beer.png");
-    SDL_Texture* tavern_background = window.load_texture("assets/pictures/tavern_bg.png");
-    Mix_Music* tavern_music = Mix_LoadMUS("assets/sounds/tavern_music.mp3");
+    SDL_Texture* beer_texture = window.load_texture("data/assets/beer.png");
+    SDL_Texture* tavern_background = window.load_texture("data/assets/tavern_bg.png");
+    Mix_Music* tavern_music = Mix_LoadMUS("data/sounds/tavern_music.mp3");
+
     Entity background = Entity(Vector2f(0, 0), tavern_background, RESOLUTION_X, RESOLUTION_Y);
     std::vector<Beer> my_beers; 
     my_beers.reserve(9);
@@ -146,8 +147,7 @@ int main(int argc, char* args[])
                 beer.play_hit_sound();
 
             } else if (beer_y <= (beer.max_point)) {
-                std::cout << "BOOM" << std::endl;
-                beer.play_explosion_sound();
+                beer.play_hey_sound();
             }
             window.render(beer);
 

@@ -11,9 +11,9 @@ class Beer: public Entity {
     private:
         int step_y;
         int dest;
-        Mix_Chunk* sound_hit = Mix_LoadWAV("assets/sounds/beer_hit.wav");
-        Mix_Chunk* sound_broken_glass = Mix_LoadWAV("assets/sounds/broken_glass.wav");
-        Mix_Chunk* sound_explosion = Mix_LoadWAV("assets/sounds/beer_explosion.wav");
+        Mix_Chunk* sound_hit = Mix_LoadWAV("data/sounds/beer_hit.wav");
+        Mix_Chunk* sound_broken_glass = Mix_LoadWAV("data/sounds/broken_glass.wav");
+        Mix_Chunk* sound_hey = Mix_LoadWAV("data/sounds/dwarf_hey.wav");
     public:
         const int max_point = 0;
         const int min_point = 590;
@@ -27,6 +27,6 @@ class Beer: public Entity {
         void get_info();
         void play_hit_sound();
         void play_broken_glass_sound();
-        void play_explosion_sound();
+        void play_hey_sound();
 };
 

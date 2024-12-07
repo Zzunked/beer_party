@@ -69,7 +69,7 @@ void Beer::play_broken_glass_sound() {
 }
 
 
-void Beer::play_explosion_sound() {
-    Mix_PlayChannel(-1, sound_explosion, 0);
+void Beer::play_hey_sound() {
+    Mix_PlayChannel(-1, sound_hey, 0);
 }
 
