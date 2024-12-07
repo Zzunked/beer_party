@@ -30,7 +30,7 @@ target_link_libraries(
 
 target_include_directories(
     game PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc
     ${SDL2}/Versions/A/Headers
     ${SDL2_image}/Versions/A/Headers
     ${SDL2_ttf}/Versions/A/Headers
