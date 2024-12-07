@@ -1,26 +1,30 @@
-#include <string>
 #include <SDL_mixer.h>
 
 #include "beer.hpp"
-
-
-Beer::Beer(Vector2f p_position, SDL_Texture* p_texture)
-    :Entity(p_position, p_texture) {
-    
-    set_current_frame_width(32);
-    set_current_frame_height(32);    
-    dest = 0;
-    step_y = 5;
-}
+#include "constants.hpp"
 
 
 Beer::Beer(Vector2f p_position, SDL_Texture* p_texture, int p_id)
-    :Entity(p_position, p_texture, p_id) {
+    :Entity(p_position, p_texture) {
     
-    set_current_frame_width(32);
-    set_current_frame_height(32);    
-    dest = 0;
-    step_y = 5;
+    current_frame.w = BEER_WIDTH;
+    current_frame.h = BEER_HEIGHT;
+    id = p_id;
+}
+
+
+int Beer::get_dest() {
+    return dest;
+}
+
+
+int Beer::get_max_point() {
+    return max_point;
+}
+
+
+int Beer::get_min_point() {
+    return min_point;
 }
 
 
@@ -33,29 +37,22 @@ void Beer::set_dest(int p_dest) {
     dest = p_dest;
 }
 
-int Beer::get_dest() {
-    return dest;
-}
-
 
 void Beer::move_by_y() {
-    Vector2f current_position = get_position();
-    float new_pos_y = current_position.y + step_y;
-
-    set_position(Vector2f(current_position.x, new_pos_y));
+    float pos_y_new = position.y + step_y;
+    position = Vector2f(position.x, pos_y_new);
 }
 
 
 void Beer::move_to_bottom() {
-    Vector2f current_position = get_position();
     float bottom = min_point - abs(step_y);
-    set_position(Vector2f(current_position.x, bottom));
+    position = Vector2f(position.x, bottom);
 }
 
 
 void Beer::get_info() {
-    std::cout << "Beer[" << get_id() << "] dest: " << get_dest() << " position: " << std::endl;   
-    get_position().print();
+    std::cout << "Beer[" << id << "] dest: " << dest << " position: " << std::endl;   
+    position.print();
 }
 
 
