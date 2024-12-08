@@ -9,3 +9,8 @@ const int BEER_MIN_Y = 590;
 const int BEER_WIDTH = 32 * 4;
 const int BEER_HEIGHT = 32 * 4;
 
+
+enum Scene {
+    main_menu,
+    beer_party_1
+};

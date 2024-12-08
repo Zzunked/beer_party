@@ -12,6 +12,7 @@ add_executable(
     src/math.cpp
     src/beer.cpp
     src/background.cpp
+    src/scenes/beer_party_1.cpp
 )
 
 # Variables storing SDL framework locations
@@ -32,6 +33,7 @@ target_link_libraries(
 target_include_directories(
     game PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/scenes
     ${SDL2}/Versions/A/Headers
     ${SDL2_image}/Versions/A/Headers
     ${SDL2_ttf}/Versions/A/Headers

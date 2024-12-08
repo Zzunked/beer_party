@@ -13,21 +13,11 @@
 #include "math.hpp"
 #include "beer.hpp"
 #include "background.hpp"
+#include "beer_party_1.hpp"
 
 
-
-int calculate_random_dest(int start_point, int max_point) {
-
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist6(start_point, max_point);
-    int dest = dist6(rng);
-
-    return dest;
-}
-
-
-void add_beers(std::vector<Beer>& beers, SDL_Texture* beer_texture) {
+void add_beers(std::vector<Beer>& beers, SDL_Texture* beer_texture)
+{
 
     int beer_x_position = 24;
     int beer_y_position = 590;
@@ -38,24 +28,6 @@ void add_beers(std::vector<Beer>& beers, SDL_Texture* beer_texture) {
         beer_x_position += beer_step;
     };
 
-}
-
-
-void move_beers(std::vector<Beer>& beers) {
-
-    for (Beer &beer : beers) {
-    
-        Vector2f current_beer_pos = beer.get_position();
-
-        if (current_beer_pos.y >= beer.get_min_point()){
-            int dest = calculate_random_dest(beer.get_max_point(), beer.get_min_point());
-            beer.set_dest(dest);
-            beer.change_direction();
-        } else if (current_beer_pos.y <= beer.get_dest()) {
-            beer.change_direction();
-        }
-        beer.move_by_y();
-    }
 }
 
 
@@ -80,10 +52,14 @@ int main(int argc, char* args[])
     SDL_Texture* tavern_background = window.load_texture("data/assets/tavern_bg.png");
     Mix_Music* tavern_music = Mix_LoadMUS("data/sounds/tavern_music.mp3");
 
+
     Background background = Background(tavern_background);
+
     std::vector<Beer> my_beers; 
     my_beers.reserve(9);
+
     bool running = true;
+    Scene current_scene = beer_party_1;
     const float time_step = 0.01f;
     float accumulator = 0.0f;
     float current_time = utils::hire_time_in_seconds();
@@ -101,61 +77,24 @@ int main(int argc, char* args[])
         current_time = new_time;
         accumulator += frame_time;
 
+        switch (current_scene)
+        {
+            case main_menu:
+            break;
 
-        while (accumulator >= time_step) {
+            case beer_party_1:
+            handle_events_beer_party_1(&accumulator, &time_step, &event, my_beers, &running);
+            render_scene_beer_party_1(&window, &background, my_beers);
+            break;
 
-            while(SDL_PollEvent(&event)) {
-
-                if (event.type == SDL_QUIT) {
-
-                    running = false;
-
-                } else if (event.type == SDL_MOUSEBUTTONDOWN) {
-
-                    Vector2f click_pos =  Vector2f(event.button.x, event.button.y);
-
-                    for (Beer &beer: my_beers) {
-
-                        Vector2f beer_pos = beer.get_position();
-
-                        if ((click_pos.x >= beer_pos.x) && (click_pos.x <= (beer_pos.x + 128))) {
-
-                            if ((click_pos.y >= beer_pos.y) && (click_pos.y <= (beer_pos.y + 128))) {
-
-                                beer.play_broken_glass_sound();
-                                beer.move_to_bottom();
-
-                                break;
-                            }
-                        }
-                    }
-                }
-            }    
-            accumulator -= time_step;
-        }
-
-        move_beers(my_beers);
-
-        window.clear();
-
-        window.render(background);
-        
-        for (Beer &beer : my_beers) {
-            beer.get_info();
-            float beer_y = beer.get_position().y;
-
-            if (beer_y == beer.get_min_point()) {
-                beer.play_hit_sound();
-
-            } else if (beer_y <= (beer.get_max_point())) {
-                beer.play_hey_sound();
-            }
-            window.render(beer);
-
+            default:
+            log_error("Unknown scene");
+            running = false;
         }
 
         window.display();
     }
+
     Mix_HaltMusic();
     Mix_CloseAudio();
     
