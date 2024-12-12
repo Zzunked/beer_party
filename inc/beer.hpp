@@ -6,7 +6,8 @@
 #include "render_window.hpp"
 
 
-class Beer: public Entity {
+class Beer: public Entity
+{
     private:
         int id;
         int step_y = 5;

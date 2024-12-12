@@ -37,42 +37,42 @@ void move_beers(std::vector<Beer>& beers)
 }
 
 
-void handle_events_beer_party_1(float* accumulator, const float* time_step, SDL_Event* event,  std::vector<Beer>& beers, bool* running)
-        
+void handle_events_beer_party_1(SDL_Event* event, bool* running, std::vector<Beer>& beers)
 {
-    while (*accumulator >= *time_step) 
-    {
-
         while(SDL_PollEvent(event))
         {
-
-            if (event->type == SDL_QUIT)
+            switch (event->type)
             {
-
-                *running = false;
-
-            } else if (event->type == SDL_MOUSEBUTTONDOWN)
-            {
-                Vector2f click_pos =  Vector2f(event->button.x, event->button.y);
-
-                for (Beer &beer: beers)
-                {
-                    Vector2f beer_pos = beer.get_position();
-
-                    if ((click_pos.x >= beer_pos.x) && (click_pos.x <= (beer_pos.x + 128)))
+                case SDL_QUIT:
                     {
-                        if ((click_pos.y >= beer_pos.y) && (click_pos.y <= (beer_pos.y + 128)))
-                        {
-                            beer.play_broken_glass_sound();
-                            beer.move_to_bottom();
-                            break;
-                        }
+                        *running = false;
                     }
-                }
+                case SDL_MOUSEBUTTONDOWN:
+                    {
+                        Vector2f click_pos =  Vector2f(event->button.x, event->button.y);
+
+                        for (Beer &beer: beers)
+                        {
+                            Vector2f beer_pos = beer.get_position();
+
+                            if ((click_pos.x >= beer_pos.x) && (click_pos.x <= (beer_pos.x + 128)))
+                            {
+                                if ((click_pos.y >= beer_pos.y) && (click_pos.y <= (beer_pos.y + 128)))
+                                {
+                                    beer.play_broken_glass_sound();
+                                    beer.move_to_bottom();
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    }
+
+                default:
+                    break;
             }
-        }    
-        *accumulator -= *time_step;
-    }
+        }
+
     move_beers(beers);
 }
 
