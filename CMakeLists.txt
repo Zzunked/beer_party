@@ -15,6 +15,7 @@ add_executable(
     src/scenes/beer_party_1.cpp
     src/scenes/main_menu.cpp
     src/button.cpp
+    src/music_player.cpp
 )
 
 # Variables storing SDL framework locations
