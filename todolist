@@ -1,0 +1,9 @@
+- add invents handler
+- add scene fadein/fadeout
+- add scene with text dialog
+- calculate relative objects position instead of hardcode
+- add settings
+- add ingame menu
+- support different window sizes: 480p, 720p, 1080p
+- support full screen mode
+- add score counter
