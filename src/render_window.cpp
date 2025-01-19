@@ -8,7 +8,8 @@
 
 
 RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h)
-    :window(nullptr), renderer(nullptr) {
+    :window(nullptr), renderer(nullptr)
+{
 
     window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, p_w, p_h, SDL_WINDOW_SHOWN);
 
@@ -19,7 +20,8 @@ RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h)
 }
 
 
-SDL_Texture* RenderWindow::load_texture(const char* p_filePath) {
+SDL_Texture* RenderWindow::load_texture(const char* p_filePath)
+{
 
     SDL_Texture* texture = nullptr;
     texture = IMG_LoadTexture(renderer, p_filePath);
@@ -31,17 +33,20 @@ SDL_Texture* RenderWindow::load_texture(const char* p_filePath) {
 }
 
 
-void RenderWindow::clean_up() {
+void RenderWindow::clean_up()
+{
     SDL_DestroyWindow(window);
 }
 
 
-void RenderWindow::clear() {
+void RenderWindow::clear()
+{
     SDL_RenderClear(renderer);
 }
 
 
-void RenderWindow::render(Entity& p_entity) {
+void RenderWindow::render(Entity& p_entity)
+{
     SDL_Rect src;
     src.x = p_entity.get_current_frame().x;
     src.y = p_entity.get_current_frame().y;
@@ -58,7 +63,8 @@ void RenderWindow::render(Entity& p_entity) {
 }
 
 
-void RenderWindow::display() {
+void RenderWindow::display()
+{
     SDL_RenderPresent(renderer);
 }
 

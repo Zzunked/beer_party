@@ -13,13 +13,11 @@
 #include "math.hpp"
 #include "beer.hpp"
 #include "background.hpp"
-#include "beer_party_1.hpp"
 #include "button.hpp"
 #include "main_menu.hpp"
 #include "music_player.hpp"
-
-
-void add_beers(std::vector<Beer>& beers, SDL_Texture* beer_texture);
+#include "scene_handler_main_menu.hpp"
+#include "scene_handler_party_1.hpp"
 
 
 int main(int argc, char* args[])
@@ -36,28 +34,15 @@ int main(int argc, char* args[])
 
     RenderWindow window("Beer Party", RESOLUTION_X, RESOLUTION_Y);
     MusicPlayer music_player = MusicPlayer();
-
-    SDL_Event event;
-    SDL_Texture* beer_texture = window.load_texture("data/assets/beer.png");
-    SDL_Texture* play_btn_texture = window.load_texture("data/assets/play_btn.png");
-    SDL_Texture* main_menu_bg_texture = window.load_texture("data/assets/main_menu_bg.png");
-    SDL_Texture* beer_party_bg_texture = window.load_texture("data/assets/beer_party_bg.png");
-
-    Background main_menu_bg = Background(main_menu_bg_texture);
-    Background beer_party_bg = Background(beer_party_bg_texture);
-    Button play_btn = Button(Vector2f(600, 360), play_btn_texture, PLAY_BTN_W, PLAY_BTN_H);
-
-    std::vector<Beer> my_beers; 
-    my_beers.reserve(9);
-
-    bool running = true;
     Scene current_scene = main_menu;
+    bool running = true;
+    SDL_Event event;
+    SceneHandlerMainMenu main_menu_scene_handler = SceneHandlerMainMenu(&window, &event, &running, &current_scene);
+    SceneHandlerPartyOne party_one_scene_handler = SceneHandlerPartyOne(&window, &event, &running, &current_scene);
 
     const float time_step = 0.01f;
     float accumulator = 0.0f;
     float current_time = utils::hire_time_in_seconds();
-
-    add_beers(my_beers, beer_texture);
 
     while (running)
     {
@@ -72,19 +57,19 @@ int main(int argc, char* args[])
             case main_menu:
                 {
                     music_player.play_music_main_menu();
-                    handle_events_main_menu(&event, &running, &current_scene, &play_btn);
-                    render_scene_main_menu(&window, &main_menu_bg, &play_btn);
+                    main_menu_scene_handler.load_scene();
+                    main_menu_scene_handler.handle_events();
+                    main_menu_scene_handler.render_scene();
                     break;
                 }
-
             case beer_party_scene_1:
                 {
                     music_player.play_music_scene_1();
-                    handle_events_beer_party_1(&event, &running, my_beers);
-                    render_scene_beer_party_1(&window, &beer_party_bg, my_beers);
+                    party_one_scene_handler.load_scene();
+                    party_one_scene_handler.handle_events();
+                    party_one_scene_handler.render_scene();
                     break;
                 }
-
             default:
                 {
                     log_error("Unknown scene");
@@ -103,17 +88,3 @@ int main(int argc, char* args[])
     return 0;    
 }
 
-
-void add_beers(std::vector<Beer>& beers, SDL_Texture* beer_texture)
-{
-
-    int beer_x_position = 24;
-    int beer_y_position = 590;
-    int beer_step = 136;
-    for (int i = 0; i < 9; i++)
-    {
-        beers.push_back(Beer(Vector2f(beer_x_position, beer_y_position), beer_texture, i));
-        beer_x_position += beer_step;
-    };
-
-}

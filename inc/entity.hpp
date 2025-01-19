@@ -6,7 +6,8 @@
 #include "math.hpp"
 
 
-class Entity {
+class Entity
+{
     protected:
         Vector2f position;
         SDL_Texture* texture;
@@ -19,5 +20,7 @@ class Entity {
         SDL_Rect get_current_frame();
 
         void set_position(Vector2f p_position);
+        void set_texture(SDL_Texture* p_texture);
+        void set_size(int p_width, int p_height);
 };
 

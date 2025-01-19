@@ -12,8 +12,8 @@ add_executable(
     src/math.cpp
     src/beer.cpp
     src/background.cpp
-    src/scenes/beer_party_1.cpp
-    src/scenes/main_menu.cpp
+    src/scenes/scene_handler_main_menu.cpp
+    src/scenes/scene_handler_party_1.cpp
     src/button.cpp
     src/music_player.cpp
 )

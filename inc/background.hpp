@@ -9,6 +9,7 @@
 
 class Background: public Entity {
     public:
+        Background();
         Background(SDL_Texture* p_tex);
 };
 
