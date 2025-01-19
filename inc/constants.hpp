@@ -12,8 +12,8 @@ const int BEER_HEIGHT = 32 * 4;
 const int PLAY_BTN_W = 144;
 const int PLAY_BTN_H = 72;
 
-const int MUSIC_FADEOUT_TIME = 1500;
-const int MUSIC_FADEIN_TIME = 1500;
+const int MUSIC_FADEOUT_TIME = 300;
+const int MUSIC_FADEIN_TIME = 300;
 
 
 enum Scene 
